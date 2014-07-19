@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HallenProjektStatus: An OSX status bar application for hallenprojekt.de
+title: HallenProjektStatus -  An OSX status bar application for hallenprojekt.de
 ---
 
 <p>I have been writing Ruby applications exclusively for awhile now, so I thought it is time to try out something new. As a result, I have developed an OSX Cocoa application for <a href="http://hallenprojekt.de/" title="Showing places &raquo; hallenprojekt.de | Neue Orte fÃ¼r neues Arbeiten" target="_BLANK">hallenprojekt.de,</a> a website that aggregates different co working spaces. It is an application that lives in the status bar and allows easy checking into the available co working spaces.</p>
