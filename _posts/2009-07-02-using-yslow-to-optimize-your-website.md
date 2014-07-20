@@ -34,7 +34,7 @@ There are 22 rules defined in YSlow:
   </ol>
 </p>
 <p>Since I like to learn by example, I've created a simple, rather ugly web application called Cootweets. It will be some sort of a "geo tagged flickr image with a tweet attached to it"-thing. So throughout this blog post, I will try to optimize the start page of Cootweets to satisfy YSlow's requirements. I won't talk about every rule, just the ones that YSlow complained about. Here is what the start page looks like: :<br/>
-<img src="http://www.huesler-informatik.ch/wp-content/uploads/2009/07/cootweets_home_post_format.jpg" alt="cootweets_home_post_format" title="cootweets_home_post_format" width="389" height="362"/>
+/public/images/posts/="/public/images/posts/cootweets_home_post_format.jpg" alt="cootweets_home_post_format" title="cootweets_home_post_format" width="389" height="362"/>
 </p>
 <p>So lets get started and make the start page load faster.</p>
 <h3>Make fewer HTTP requests (B)</h3>
@@ -79,7 +79,7 @@ If you are running Apache, the solution is similar, but somehow I could not conv
 However, this does not set the time dynamically. Well of course, we could alter the Apache configuration on each deploy to fix this but that seems cumbersome for such a little task. If someone knows how to do this dynamically with an Apache directive, please let me know.
 </p>
 <p>You can check if it works by looking at the HTTP headers returned from the webserver. YSlow offers a convenient way to do this but you can also use <a href="http://curl.haxx.se/" title="cURL and libcurl">curl</a> with the --head option to look at the headers.<br/>
-<a href="http://www.huesler-informatik.ch/wp-content/uploads/2009/08/expire_headers.jpg" title="Expires headers in YSlow"><img src="http://www.huesler-informatik.ch/wp-content/uploads/2009/07/expire_headers_post_format.jpg" alt="expire_headers_post_format" title="expire_headers_post_format" width="389" height="212"/></a>
+<a href="http://www.huesler-informatik.ch/wp-content/uploads/2009/08/expire_headers.jpg" title="Expires headers in YSlow">/public/images/posts/="/public/images/posts/expire_headers_post_format.jpg" alt="expire_headers_post_format" title="expire_headers_post_format" width="389" height="212"/></a>
 <br/>
 <script src="http://gist.github.com/149521.js"></script>
 <script src="http://gist.github.com/149522.js"></script>
@@ -103,8 +103,8 @@ An here for Apache:<br/>
 </p>
 <h3>Results</h3>
 <p>With a few simple changes, we have reduced the number of requests and the size of the data being transferred. Comparing an empty with a primed cache, I reduced the total number of requests from 8 down to 2 in my sample application. In terms of used bandwidth, the reduction is from 416.9K to 0.6K. For the sake of the example, I have included the Javascript, even though the page doesn't use any. There is also a CSS image that has no Expires header and therefore gets requested on every page load.<br/>
-<a href="http://www.huesler-informatik.ch/wp-content/uploads/2009/07/cache_statistics.jpg" title="cache statistics">
-<img src="http://www.huesler-informatik.ch/wp-content/uploads/2009/07/cache_statistics-300x124.jpg" alt="cache_statistics" title="cache statistics" width="300" height="124" class="alignnone size-medium wp-image-104" /></a>
+<a href="/public/images/posts/cache_statistics.jpg" title="cache statistics">
+/public/images/posts/="/public/images/posts/cache_statistics-300x124.jpg" alt="cache_statistics" title="cache statistics" width="300" height="124" class="alignnone size-medium wp-image-104" /></a>
 </p>
 <p>
   YSlow is a very useful tool to quickly analyze the page load performance. It offers a rich set of information and tools comfortably integrated in Firefox. Google has recently released a similar tool called <a href="http://code.google.com/speed/page-speed/" title="Page Speed Home">Page Speed</a>. The cool thing about page speed is that it actually estimates the bandwitdh reduction that could be achieved, so make sure to check it out too.

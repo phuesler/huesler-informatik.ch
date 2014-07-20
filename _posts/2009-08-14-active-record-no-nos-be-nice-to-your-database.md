@@ -6,7 +6,7 @@ title: Active Record No No's. Be nice to your database
 <p>ActiveRecord, the ORM of Ruby on Rails is a great tool to model database backed applications without writing a lot of repetitive SQL queries. By following the principle "Convention over Configuration", you don't need to setup a lot of configuration to get started. So no getter and setters and no mapping definitions if you follow the conventions. At first, it feels a little bit like magic, except that it is not. In the end, it is still generating SQL for you. That means, that even Active Record does a great job for you, it cannot protect you from bad queries.</p>
 
 <p>During the past few months, I have seen my fair share of code that makes your database cry havoc and even worse, takes down an entire application on subsequent requests. Most of these mistakes could have been easily avoided by following one simple guidline: <em>"Be reasonable. Before committing your code, take a look at the generated SQL and keep in mind, that the production database might have more than just 10 records inside."</em><br />
-<img src="http://www.huesler-informatik.ch/wp-content/uploads/2009/08/reasonable_cat.jpg" />
+<img src="/public/images/posts/reasonable_cat.jpg" />
 </p>
 
 <p>So let's take a look at some example code that might be trouble for your application:
