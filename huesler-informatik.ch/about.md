@@ -3,6 +3,7 @@ layout: page
 title: About
 ---
 
+  <img src="/public/images/profile_picture.jpg"/>
 <p class="message">
 	My name is Patrick Huesler.
 </p>
