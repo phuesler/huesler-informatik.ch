@@ -1,6 +1,6 @@
 ---
 layout: post
-title: EuRuKo 2010 - Applications with MacRuby
+title: "EuRuKo 2010 - Applications with MacRuby"
 ---
 
 <iframe src="//player.vimeo.com/video/12614702" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/12614702">Patrick Husler</a> from <a href="http://vimeo.com/agilece">ACE! Conferences</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
