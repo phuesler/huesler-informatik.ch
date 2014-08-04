@@ -3,7 +3,7 @@ layout: post
 title: "Treasure Island - Concurrency in JRuby - RailsBerry 2012"
 ---
 
-My talk from together with Tim Lossen at [RailsBerry 2012](http://www.railsberry.com/2012).
+My talk together with Tim Lossen at [RailsBerry 2012](http://www.railsberry.com/2012).
 
 <iframe width="560" height="315" src="//www.youtube.com/embed/oBv1U2slBFY" frameborder="0" allowfullscreen></iframe>
 
