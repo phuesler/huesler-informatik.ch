@@ -9,7 +9,7 @@ title: "Christmas game raffle"
   var myCountdownTest = new Countdown({
     year	: 2014,
     month	: 12,
-    day		: 20,
+    day		: 23,
     width	: 600,
     height	: 100,
     rangeHi: "days"
