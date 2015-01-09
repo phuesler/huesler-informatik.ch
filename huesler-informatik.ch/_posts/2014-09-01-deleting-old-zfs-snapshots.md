@@ -3,6 +3,8 @@ layout: post
 title: "Deleting old ZFS snapshots"
 ---
 
+** Update Jan 9th, 2015: Added support for GNU Date on Linux
+
 I needed to delete old [zfs](http://docs.oracle.com/cd/E19253-01/819-5461/zfsover-2/) snapshots so
 I wrote a little [bash](http://www.gnu.org/software/bash/) script that does this for me. In addition to time parameters you can specify a match pattern as well as instructing the script to run a test run,
 which simulates the deletion of snapshots but does not actually delete them.
@@ -45,6 +47,7 @@ Here is the script in its full glory. You can also find the latest version on my
 
 
 {% highlight bash %}
+
 #!/usr/bin/env bash
 
 usage="$(basename "$0") -s SECONDS -m MINUTES -h HOURS -d DAYS -p GREP_PATTERN [-t]\n
@@ -113,6 +116,24 @@ if [[ -z $seconds ]]; then
   seconds=0
 fi
 
+# Figure out which platform we are running on, more specifically, whic version of date
+# we are using. GNU date behaves different thant date on OSX and FreeBSD
+platform='unknown'
+unamestr=$(uname)
+
+if [[ "$unamestr" == 'Linux' ]]; then
+  platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+  platform='bsd'
+elif [[ "$unamestr" == 'OpenBSD' ]]; then
+  platform='bsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+  platform='bsd'
+else
+  echo -e "unknown platform $unamestr 1>&2"
+  exit 1
+fi
+
 compare_seconds=$(($days * 24 * 60 * 60 + $hours * 60 * 60 + $minutes * 60 + $seconds))
 if [ $compare_seconds -lt 1 ]; then
   echo -e time has to be in the past 1>&2
@@ -120,11 +141,15 @@ if [ $compare_seconds -lt 1 ]; then
   exit 1
 fi
 
+if [[ "$platform" == 'linux' ]]; then
+compare_timestamp=`date --date="-$(echo $compare_seconds) seconds" +"%s"`
+else
 compare_timestamp=`date -j -v-$(echo $compare_seconds)S +"%s"`
+fi
+
 # get a list of snapshots sorted by creation date, so that we get the oldest first
 # This will allow us to skip the loop early
 snapshots=`zfs list -H -t snapshot -o name,creation -s creation | grep $pattern`
-# so for in uses \n as a delimiter
 
 if [[ -z $snapshots ]]; then
   echo "no snapshots found for pattern $pattern"
@@ -132,12 +157,18 @@ if [[ -z $snapshots ]]; then
 fi
 
 
+# for in uses \n as a delimiter
 old_ifs=$IFS
 IFS=$'\n'
 for line in $snapshots; do
   snapshot=`echo $line | cut -f 1`
   creation_date=`echo $line | cut -f 2`
-  creation_date_timestamp=`date -j -f "%a %b %d %H:%M %Y" "$creation_date" "+%s"`
+
+  if [[ "$platform" == 'linux' ]]; then
+    creation_date_timestamp=`date --date="$creation_date" "+%s"`
+  else
+    creation_date_timestamp=`date -j -f "%a %b %d %H:%M %Y" "$creation_date" "+%s"`
+  fi
 
   # Check if the creation date of a snapshot is less than our compare date
   # Meaning if it is older than our compare date
