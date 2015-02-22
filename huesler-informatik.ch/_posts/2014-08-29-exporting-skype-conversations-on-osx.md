@@ -3,6 +3,8 @@ layout: post
 title: "Exporting skype conversations/chat logs on OSX"
 ---
 
+** Update Feb 22th 2015 : Translate unix timestamps into local time
+
 Today I wanted to export my [Skype](https://www.skype.com) chat logs but I could not find a good way other than copy and pasting it page by page.
 
 After a little googling it turned out, that Skype is using [SQLite](http://www.sqlite.org) as a storage engine so it is as simple as finding the main database and then load it up into SQLite.
@@ -25,7 +27,7 @@ Then do the following:
 3. Type in the following and do not forget to replace `your_skype_username` with your actual skype name
 
 {% highlight bash %}
-sqlite3 ~/Library/Application\ Support/Skype/your_skype_username/main.db "select author, timestamp, body_xml from messages;" > ~/Downloads/skype_chat_history.txt
+sqlite3 ~/Library/Application\ Support/Skype/your_skype_username/main.db "select author, datetime(timestamp, 'unixepoch', 'localtime'), body_xml from messages;" > ~/Downloads/skype_chat_history.txt
 {% endhighlight %}
 
 Hat tip to [Jako](http://superuser.com/users/98595/jako) for giving me the [inspiration](http://superuser.com/questions/312119/is-there-a-way-to-export-chat-history-in-skype-5-2-x-for-os-x)
@@ -118,7 +120,7 @@ user3
 Let's say I was talking to `peterpan` for the last year or so and want to see all messages:
 
 {% highlight sql %}
-sqlite> select author,timestamp, body_xml from messages where dialog_partner = 'peterpan';
+sqlite> select author, datetime(timestamp, 'unixepoch', 'localtime'), body_xml from messages where dialog_partner = 'peterpan';
 {% endhighlight %}
 
 
@@ -145,7 +147,7 @@ sqlite> select name from chats where topic = 'Name of the Chat';
 Then we can use this value to find list all the messages from this conversation:
 
 {% highlight sql %}
-sqlite> select author, timestamp, body from messages where chatname = '#a_skype_user_name/$another_skype_username;aa0aaaa0a000aa00';
+sqlite> select author, datetime(timestamp, 'unixepoch', 'localtime'), body from messages where chatname = '#a_skype_user_name/$another_skype_username;aa0aaaa0a000aa00';
 {% endhighlight %}
 
 ### Exporting a result to a CSV file
