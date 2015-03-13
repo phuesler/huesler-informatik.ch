@@ -1,3 +1,0 @@
-#!/bin/bash
-
-rsync -avz _site/ mosphere@server23.hostpoint.ch:/home/mosphere/www/huesler-informatik.ch/
