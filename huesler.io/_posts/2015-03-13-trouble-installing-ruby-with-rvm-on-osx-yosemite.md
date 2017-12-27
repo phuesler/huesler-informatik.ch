@@ -5,7 +5,7 @@ title: "Problems installing Ruby with RVM on OSX Yosemite 10.10.2"
 
 I tried to install [Ruby 1.9.3](https://www.ruby-lang.org/en/downloads/) using [RVM](https://rvm.io) but it had problems auto detecting the correct compiler.
 
-# TLDR;
+# TL;DR
 
 ## Error
 
