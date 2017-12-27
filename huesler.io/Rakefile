@@ -1,0 +1,17 @@
+task default: %w[build]
+
+task :release => [:build, :deploy]
+
+task :deploy do
+  user = ENV['deploy_user']
+  server = ENV['deploy_server']
+  exec "rsync -avz _site/ #{user}@#{server}:/home/#{user}/www/huesler.io/"
+end
+
+task :build do
+  exec 'bundle exec jekyll build'
+end
+
+task :server do
+  exec 'bundle exec jekyll server --drafts --watch'
+end
